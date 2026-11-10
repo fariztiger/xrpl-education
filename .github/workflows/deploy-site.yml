@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'chapters.html'
+      - 'assets/**'
       - '.github/workflows/deploy-site.yml'
   workflow_dispatch:
 
@@ -30,6 +32,7 @@ jobs:
         run: |
           mkdir -p site
           cp index.html site/index.html
+          cp chapters.html site/chapters.html
           mkdir -p site/assets
           cp assets/premium.css assets/premium.js site/assets/
       - name: Configure Pages
