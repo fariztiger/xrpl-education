@@ -5,6 +5,8 @@ on:
     paths:
       - 'index.html'
       - 'chapters.html'
+      - 'concepts.html'
+      - 'developer.html'
       - 'assets/**'
       - '.github/workflows/deploy-site.yml'
   workflow_dispatch:
@@ -33,8 +35,10 @@ jobs:
           mkdir -p site
           cp index.html site/index.html
           cp chapters.html site/chapters.html
+          cp concepts.html site/concepts.html
+          cp developer.html site/developer.html
           mkdir -p site/assets
-          cp assets/premium.css assets/premium.js site/assets/
+          cp assets/premium.css assets/premium.js assets/xrp-hero.svg site/assets/
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
