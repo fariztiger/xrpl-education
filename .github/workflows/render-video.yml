@@ -1,0 +1,36 @@
+name: Render XRPL video
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xrpl-video-render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: video
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Render vertical MP4
+        run: npm run render -- --concurrency=2
+      - name: Upload MP4 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xrpl-lending-video
+          path: video/out/xrpl-lending.mp4
+          if-no-files-found: error
+          retention-days: 14
